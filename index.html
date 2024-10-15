@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulos EFSRT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+        }
+
+        /* Header con logo */
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #673AB6; /* Fondo color morado */
+            padding: 20px;
+            width: 100%;
+            border-bottom: 5px solid #D500F9;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-container {
+            margin-right: 20px;
+        }
+
+        .header-container img {
+            height: 60px;
+            filter: brightness(0) invert(1); /* Aplica el efecto blanco al logo */
+        }
+
+        .header-container h1 {
+            color: white; /* Texto blanco */
+            font-size: 2.5em;
+            margin: 0;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        /* Separación entre el título y los botones */
+        .content {
+            margin-top: 40px; /* Espacio adicional */
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo-container {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .header-container h1 {
+                font-size: 2em;
+            }
+        }
+
+        /* Estilos generales */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 10px;
+        }
+
+        .game-card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            padding: 15px;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative; /* Necesario para posicionar los botones */
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .game-card h2 {
+            font-size: 1.4em;
+            margin: 15px 0 10px;
+            color: #333;
+        }
+
+        .game-card p {
+            font-size: 0.95em;
+            color: #666;
+            padding: 0 20px;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .game-card button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .game-card button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos para los botones estilo macOS */
+        .mac-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .mac-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ff5f57; /* Rojo (cerrar) */
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .mac-button.green {
+            background-color: #28c940; /* Verde (maximizar) */
+        }
+
+        /* Ajuste del color de fondo del iframe */
+        #iframe-container {
+            display: none;
+            margin-top: 40px;
+            width: 100%;
+            height: 600px;
+            background-color: #b0c4de; /* Color gris claro para el fondo */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 15px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        footer a {
+            color: #0056b3;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            .game-card h2 {
+                font-size: 1.2em;
+            }
+            .game-card p {
+                font-size: 0.85em;
+            }
+            .game-card button {
+                font-size: 0.9em;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <div class="logo-container">
+            <img src="https://d30mzt1bxg5llt.cloudfront.net/public/uploads/images/_signatoryLogo/LOGO-NEUMANN.png" alt="Logo">
+        </div>
+        <h1>Módulos EFSRT</h1>
+    </div>
+
+    <div class="content">
+        <main class="container">
+            <!-- Módulo 1 -->
+            <div class="game-card">
+                <div class="mac-buttons">
+                    <div class="mac-button" onclick="requestPassword('red', 'modulo1')"></div>
+                    <div class="mac-button green" onclick="requestPassword('green', 'modulo1')"></div>
+                </div>
+                <h2>📚 Módulo 1: Centros Laborales</h2>
+                <p>Registra las actividades desarrolladas en centros laborales dentro del marco de la Experiencia Formativa en Situaciones Reales de Trabajo (EFSRT).</p>
+                <button onclick="window.open('https://forms.gle/vpJ3jjtxULrkKfbH6', '_blank')">Abrir Formulario</button>
+            </div>
+
+            <!-- Módulo 2 -->
+            <div class="game-card">
+                <div class="mac-buttons">
+                    <div class="mac-button" onclick="requestPassword('red', 'modulo2')"></div>
+                    <div class="mac-button green" onclick="requestPassword('green', 'modulo2')"></div>
+                </div>
+                <h2>🏫 Módulo 2: Proyectos de Investigación o Innovación</h2>
+                <p>Registra las actividades desarrolladas en proyectos de investigación o innovación en instituciones educativas dentro del EFSRT.</p>
+                <button onclick="loadIframe('https://docs.google.com/forms/d/e/1FAIpQLScYvJtBpve9HSVgSXfPh_hBWyEijPUFzNfrPYXNLa6IVCOESw/viewform?embedded=true')">Abrir Formulario</button>
+            </div>
+
+            <!-- Módulo 3 -->
+            <div class="game-card">
+                <div class="mac-buttons">
+                    <div class="mac-button" onclick="requestPassword('red', 'modulo3')"></div>
+                    <div class="mac-button green" onclick="requestPassword('green', 'modulo3')"></div>
+                </div>
+                <h2>🏫 Módulo 3: Procesos Institucionales</h2>
+                <p>Registra las actividades relacionadas con los procesos institucionales dentro de instituciones educativas como parte del EFSRT.</p>
+                <button onclick="loadIframe('https://docs.google.com/forms/d/e/1FAIpQLSdvEoRgF69iglu-ZhpiItXjPJERk46nEWXVgOXZB3AjX9YABg/viewform?embedded=true')">Abrir Formulario</button>
+            </div>
+
+            <!-- Módulo 4 -->
+            <div class="game-card">
+                <div class="mac-buttons">
+                    <div class="mac-button" onclick="requestPassword('red', 'modulo4')"></div>
+                    <div class="mac-button green" onclick="requestPassword('green', 'modulo4')"></div>
+                </div>
+                <h2>💼 Módulo 4: Emprendimiento e Iniciativas de Negocio</h2>
+                <p>Registra las actividades desarrolladas en proyectos de emprendimiento e iniciativas de negocio dentro del EFSRT.</p>
+                <button onclick="window.open('https://forms.gle/KqEghDEqN4mQCzSf6', '_blank')">Abrir Formulario</button>
+            </div>
+
+            <!-- Módulo 5 -->
+            <div class="game-card">
+                <div class="mac-buttons">
+                    <div class="mac-button" onclick="requestPassword('red', 'modulo5')"></div>
+                    <div class="mac-button green" onclick="requestPassword('green', 'modulo5')"></div>
+                </div>
+                <h2>🤝 Módulo 5: Proyecto Social en Instituciones Educativas</h2>
+                <p>Registra las actividades desarrolladas en proyectos sociales dentro de instituciones educativas como parte del EFSRT.</p>
+                <button onclick="window.open('https://forms.gle/xQHwTy2cv1jgygFQ8', '_blank')">Abrir Formulario</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Contenedor iframe para módulos que se abren en la misma página -->
+    <div id="iframe-container"></div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Derechos Reservados. Instituto de Educación Superior Tecnológico John Von Neumann.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const passwordCorrect = "claveSecreta"; // Contraseña correcta
+
+        function requestPassword(color, modulo) {
+            Swal.fire({
+                title: 'Ingresa la contraseña',
+                input: 'password',
+                inputPlaceholder: 'Introduce tu contraseña',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Acceder',
+                showLoaderOnConfirm: true,
+                preConfirm: (password) => {
+                    if (password === passwordCorrect) {
+                        // Abrir el enlace correcto según el botón y módulo
+                        const enlaces = {
+                            modulo1: {
+                                red: 'https://drive.google.com/drive/folders/1Zw5q0oEl3YSCv-FlWdysX67QiwzvHezX?usp=drive_link',
+                                green: 'https://docs.google.com/spreadsheets/d/183806pPohAwvETv5y4glAgVmNQfuDI3tHKT-E_0iHYE/edit?gid=0#gid=0'
+                            },
+                            modulo2: {
+                                red: 'https://drive.google.com/drive/folders/1cGy7hyKnU4JTnWaz5uMel7hoGbqxaywu?usp=drive_link',
+                                green: 'https://docs.google.com/spreadsheets/d/1_zdrGHYr0a_5uDN9J17kGQq4w8qGmKY02Fsg8Jg3I34/edit?gid=0#gid=0'
+                            },
+                            modulo3: {
+                                red: 'https://drive.google.com/drive/folders/1JL1yip77MEBiOi4QPNrugZTGvSfNH-D4?usp=drive_link',
+                                green: 'https://docs.google.com/spreadsheets/d/18vGyb9zr8P4EN3SrQO_18GK242lDWRnHljXTR2fXUdo/edit?gid=1790379500#gid=1790379500'
+                            },
+                            modulo4: {
+                                red: 'https://drive.google.com/drive/folders/1IECAhH3qi4aUx-WXw-22KoBgLeUVTt_C?usp=drive_link',
+                                green: 'https://docs.google.com/spreadsheets/d/1X-fqT_2frqZil5InbIImdx-YZz1SwL9Xghd5zpwG938/edit?gid=0#gid=0'
+                            },
+                            modulo5: {
+                                red: 'https://drive.google.com/drive/folders/1JmHmPZcpwyXIjaSMvPVXkjpQ8JRZNCpQ?usp=drive_link',
+                                green: 'https://docs.google.com/spreadsheets/d/1JujPlr4dQA_6QwYlmOIBtg5DBhsR0a-g8yIgxSSK3mc/edit?gid=0#gid=0'
+                            }
+                        };
+
+                        const enlace = enlaces[modulo][color];
+                        
+                        if (modulo === 'modulo2' || modulo === 'modulo3') {
+                            // Cargar en iframe para módulos 2 y 3
+                            loadIframe(enlace);
+                        } else {
+                            window.open(enlace, '_blank');
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Contraseña incorrecta.'
+                        });
+                    }
+                }
+            });
+        }
+
+        function loadIframe(url) {
+            let iframeContainer = document.getElementById('iframe-container');
+            iframeContainer.style.display = 'block'; // Mostrar el contenedor
+            iframeContainer.innerHTML = `<iframe src="${url}" frameborder="0"></iframe>`;
+            // Desplazarse automáticamente al iframe
+            iframeContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
