@@ -149,7 +149,7 @@
             margin-top: 40px;
             width: 100%;
             height: 600px;
-            background-color: #b0c4de; /* Color gris claro para el fondo */
+            background-color: #b0c4de; /* Color plomo azulado */
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -179,23 +179,6 @@
         footer a:hover {
             text-decoration: underline;
         }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.8em;
-            }
-            .game-card h2 {
-                font-size: 1.2em;
-            }
-            .game-card p {
-                font-size: 0.85em;
-            }
-            .game-card button {
-                font-size: 0.9em;
-                padding: 10px 15px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -220,7 +203,7 @@
                 <button onclick="window.open('https://forms.gle/vpJ3jjtxULrkKfbH6', '_blank')">Abrir Formulario</button>
             </div>
 
-            <!-- Módulo 2 -->
+            <!-- Módulo 2: Abre en el iframe-container -->
             <div class="game-card">
                 <div class="mac-buttons">
                     <div class="mac-button" onclick="requestPassword('red', 'modulo2')"></div>
@@ -231,7 +214,7 @@
                 <button onclick="loadIframe('https://docs.google.com/forms/d/e/1FAIpQLScYvJtBpve9HSVgSXfPh_hBWyEijPUFzNfrPYXNLa6IVCOESw/viewform?embedded=true')">Abrir Formulario</button>
             </div>
 
-            <!-- Módulo 3 -->
+            <!-- Módulo 3: Abre en el iframe-container -->
             <div class="game-card">
                 <div class="mac-buttons">
                     <div class="mac-button" onclick="requestPassword('red', 'modulo3')"></div>
@@ -317,13 +300,7 @@
                         };
 
                         const enlace = enlaces[modulo][color];
-                        
-                        if (modulo === 'modulo2' || modulo === 'modulo3') {
-                            // Cargar en iframe para módulos 2 y 3
-                            loadIframe(enlace);
-                        } else {
-                            window.open(enlace, '_blank');
-                        }
+                        window.open(enlace, '_blank'); // Abre en una nueva ventana
                     } else {
                         Swal.fire({
                             icon: 'error',
