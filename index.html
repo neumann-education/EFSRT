@@ -263,10 +263,11 @@
         window.onload = function() {
             Swal.fire({
                 title: '¡Importante!',
-                html: '<p>1. Revisa la información correctamente</p>' +
-                      '<p>2. Seleccione solo una de las modalidades</p>' +
-                      '<p>3. Solo puedes hacer el envío una sola vez</p>' +
-                      '<p>4. Al registrarte, revisa tu correo</p>',
+html: '<p>1. Revisa la información correctamente</p>' +
+      '<p><strong style="color: red;">2. Seleccione solo una de las modalidades</strong></p>' +
+      '<p><strong style="color: red;">3. Solo puedes hacer el envío una sola vez</strong></p>' +
+      '<p>4. Al registrarte, revisa tu correo</p>',
+
                 icon: 'info',
                 confirmButtonText: 'Entendido'
             });
