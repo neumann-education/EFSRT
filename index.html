@@ -260,16 +260,19 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-window.onload = function() {
-    Swal.fire({
-        title: 'Mantenimiento Temporal',
-        html: '<p>Actualmente estamos realizando tareas de mantenimiento en nuestra plataforma.</p>' +
-              '<p><strong style="color: red;">Por favor, intenta nuevamente más tarde.</strong></p>' +
-              '<p>Si necesitas asistencia, envía un correo a <a href="mailto:soporte@neumann.edu.pe">soporte@neumann.edu.pe</a> indicando el problema.</p>',
-        icon: 'warning',
-        confirmButtonText: 'Entendido'
-    });
-};
+        
+        window.onload = function() {
+            Swal.fire({
+                title: '¡Importante!',
+html: '<p>1. Revisa la información correctamente</p>' +
+     '<p><strong style="color: red;">2. Seleccione solo una de las modalidades</strong></p>' +
+     '<p><strong style="color: red;">3. Solo puedes hacer el envío una sola vez</strong></p>' +
+     '<p>4. Al registrarte, revisa tu correo (Si en el lapso de una hora no llega tu nota e informe, envía un correo a soporte@neumann.edu.pe indicando el problema)</p>',
+
+                icon: 'info',
+                confirmButtonText: 'Entendido'
+            });
+        };
 
 
         const passwordCorrect = "claveSecreta"; // Contraseña correcta
