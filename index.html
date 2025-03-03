@@ -212,7 +212,7 @@
                 </div>
                 <h2>🏫 Módulo 2: Proyectos de Investigación o Innovación</h2>
 <p>Si realizas tus prácticas o EFSRT en el proyecto de investigación Neumann Research, esta modalidad es ideal para ti.</p>
-                <button onclick="confirmPaymentStatus('https://docs.google.com/forms/d/e/1FAIpQLScYvJtBpve9HSVgSXfPh_hBWyEijPUFzNfrPYXNLa6IVCOESw/viewform?embedded=true')">Inicia tu registro</button>
+                <button onclick="showModule2Alert()">Inicia tu registro</button>
             </div>
 
             <!-- Módulo 3: Abre en el iframe-container -->
@@ -355,6 +355,15 @@ html: '<p>1. Revisa la información correctamente</p>' +
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     Swal.fire('Cancelado', 'Debes estar al día con tus pagos para continuar.', 'info');
                 }
+            });
+        }
+
+        function showModule2Alert() {
+            Swal.fire({
+                title: 'Módulo 2 no disponible',
+                text: 'En este momento, no se está impartiendo este módulo.',
+                icon: 'info',
+                confirmButtonText: 'Entendido'
             });
         }
     </script>
