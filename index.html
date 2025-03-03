@@ -3,295 +3,345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulos EFSRT</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Módulos EFSRT | Neumann</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
+        :root {
+            --primary-color: #4F46E5;
+            --secondary-color: #818CF8;
+            --accent-color: #C7D2FE;
+            --background-color: #F8FAFC;
+            --card-background: #FFFFFF;
+            --text-primary: #1E293B;
+            --text-secondary: #64748B;
+            --success-color: #10B981;
+            --warning-color: #F59E0B;
+            --error-color: #EF4444;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f0f4f8;
+            box-sizing: border-box;
         }
 
-        /* Header con logo */
-        .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #673AB6; /* Fondo color morado */
-            padding: 20px;
-            width: 100%;
-            border-bottom: 5px solid #D500F9;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
         }
 
-        .logo-container {
-            margin-right: 20px;
-        }
-
-        .header-container img {
-            height: 60px;
-            filter: brightness(0) invert(1); /* Aplica el efecto blanco al logo */
-        }
-
-        .header-container h1 {
-            color: white; /* Texto blanco */
-            font-size: 2.5em;
-            margin: 0;
-            letter-spacing: 1.5px;
-            font-weight: 600;
-        }
-
-        /* Separación entre el título y los botones */
-        .content {
-            margin-top: 40px; /* Espacio adicional */
-        }
-
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .logo-container {
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
-
-            .header-container h1 {
-                font-size: 2em;
-            }
-        }
-
-        /* Estilos generales */
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 0 10px;
-        }
-
-        .game-card {
-            background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 2rem 0;
+            position: relative;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff20" fill-opacity="0.2" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
             text-align: center;
-            padding: 15px;
-            height: auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative; /* Necesario para posicionar los botones */
+            color: white;
+            position: relative;
+            z-index: 1;
         }
 
-        .game-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        .header-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .game-card h2 {
-            font-size: 1.4em;
-            margin: 15px 0 10px;
-            color: #333;
+        .header-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .game-card p {
-            font-size: 0.95em;
-            color: #666;
-            padding: 0 20px;
-            margin-bottom: 20px;
-            flex-grow: 1;
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
         }
 
-        .game-card button {
-            background-color: #007BFF;
+        .module-card {
+            background: var(--card-background);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .module-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .module-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .module-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .module-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
-            padding: 12px 20px;
-            font-size: 1em;
-            border-radius: 5px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 500;
             cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 1rem;
         }
 
-        .game-card button:hover {
-            background-color: #0056b3;
+        .module-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
         }
 
-        /* Estilos para los botones estilo macOS */
-        .mac-buttons {
+        .status-buttons {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 1rem;
+            right: 1rem;
             display: flex;
-            gap: 8px;
+            gap: 0.5rem;
         }
 
-        .mac-button {
+        .status-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background-color: #ff5f57; /* Rojo (cerrar) */
-            display: inline-block;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .mac-button.green {
-            background-color: #28c940; /* Verde (maximizar) */
+        .status-dot:hover {
+            transform: scale(1.2);
         }
 
-        /* Ajuste del color de fondo del iframe */
-        #iframe-container {
-            display: none;
-            margin-top: 40px;
-            width: 100%;
-            height: 600px;
-            background-color: #b0c4de; /* Color plomo azulado */
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        .status-dot.red {
+            background: var(--error-color);
         }
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            border-radius: 15px;
+        .status-dot.green {
+            background: var(--success-color);
         }
 
-        /* Footer */
-        footer {
+        /* Animaciones y efectos adicionales */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
             text-align: center;
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #666;
+            margin-top: 4rem;
         }
 
-        footer a {
-            color: #0056b3;
-            text-decoration: none;
-            cursor: pointer;
+        .footer p {
+            opacity: 0.9;
+            font-size: 0.9rem;
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        /* Estilos para el modal de SweetAlert2 personalizado */
+        .swal2-popup {
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .swal2-title {
+            color: var(--text-primary) !important;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .swal2-html-container {
+            color: var(--text-secondary) !important;
+        }
+
+        .swal2-confirm {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            border-radius: 10px !important;
         }
     </style>
 </head>
 <body>
-
-    <div class="header-container">
-        <div class="logo-container">
-           <!-- <img src="https://d30mzt1bxg5llt.cloudfront.net/public/uploads/images/_signatoryLogo/LOGO-NEUMANN.png" alt="Logo"> -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="header-title" data-aos="fade-down">Módulos EFSRT</h1>
+            <p class="header-subtitle" data-aos="fade-up">Explora las diferentes modalidades para realizar tus experiencias formativas en situaciones reales de trabajo</p>
         </div>
-        <h1>Módulos EFSRT</h1>
-    </div>
+    </header>
 
-
-    <div class="content">
-        <main class="container">
-            <!-- Módulo 1 -->
-            <div class="game-card">
-                <div class="mac-buttons">
-                    <div class="mac-button" onclick="requestPassword('red', 'modulo1')"></div>
-                    <div class="mac-button green" onclick="requestPassword('green', 'modulo1')"></div>
-                </div>
-                <h2>📚 Módulo 1: Centros Laborales</h2>
-<p>Si estás trabajando, realizando tus EFSRT o prácticas en una empresa vinculada a tu programa de estudio, esta modalidad es ideal para demostrar tus capacidades en el entorno laboral.</p>
-                <button onclick="confirmPaymentStatus('https://forms.gle/vpJ3jjtxULrkKfbH6')">Inicia tu registro</button>
+    <main class="container">
+        <!-- Módulo 1 -->
+        <div class="module-card" data-aos="fade-up">
+            <div class="status-buttons">
+                <div class="status-dot red" onclick="requestPassword('red', 'modulo1')"></div>
+                <div class="status-dot green" onclick="requestPassword('green', 'modulo1')"></div>
             </div>
+            <div class="module-icon">📚</div>
+            <h2 class="module-title">Centros Laborales</h2>
+            <p class="module-description">Si estás trabajando, realizando tus EFSRT o prácticas en una empresa vinculada a tu programa de estudio, esta modalidad es ideal para demostrar tus capacidades en el entorno laboral.</p>
+            <button class="module-button" onclick="confirmPaymentStatus('https://forms.gle/vpJ3jjtxULrkKfbH6')">Inicia tu registro</button>
+        </div>
 
-            <!-- Módulo 2: Abre en el iframe-container -->
-            <div class="game-card">
-                <div class="mac-buttons">
-                    <div class="mac-button" onclick="requestPassword('red', 'modulo2')"></div>
-                    <div class="mac-button green" onclick="requestPassword('green', 'modulo2')"></div>
-                </div>
-                <h2>🏫 Módulo 2: Proyectos de Investigación o Innovación</h2>
-<p>Si realizas tus prácticas o EFSRT en el proyecto de investigación Neumann Research, esta modalidad es ideal para ti.</p>
-                <button onclick="showModule2Alert()">Inicia tu registro</button>
+        <!-- Módulo 2 -->
+        <div class="module-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="status-buttons">
+                <div class="status-dot red" onclick="requestPassword('red', 'modulo2')"></div>
+                <div class="status-dot green" onclick="requestPassword('green', 'modulo2')"></div>
             </div>
+            <div class="module-icon">🏫</div>
+            <h2 class="module-title">Proyectos de Investigación o Innovación</h2>
+            <p class="module-description">Si realizas tus prácticas o EFSRT en el proyecto de investigación Neumann Research, esta modalidad es ideal para ti.</p>
+            <button class="module-button" onclick="showModule2Alert()">Inicia tu registro</button>
+        </div>
 
-            <!-- Módulo 3: Abre en el iframe-container -->
-            <div class="game-card">
-                <div class="mac-buttons">
-                    <div class="mac-button" onclick="requestPassword('red', 'modulo3')"></div>
-                    <div class="mac-button green" onclick="requestPassword('green', 'modulo3')"></div>
-                </div>
-                <h2>🏫 Módulo 3: Procesos Institucionales</h2>
-<p>Si realizas tus EFSRT o prácticas preprofesionales en el Grupo Educativo Neumann, vinculadas a las capacidades de tu programa de estudio, esta modalidad es ideal para ti.</p>
-                <button onclick="confirmPaymentStatus('https://docs.google.com/forms/d/e/1FAIpQLSdvEoRgF69iglu-ZhpiItXjPJERk46nEWXVgOXZB3AjX9YABg/viewform?embedded=true')">Inicia tu registro</button>
+        <!-- Módulo 3 -->
+        <div class="module-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="status-buttons">
+                <div class="status-dot red" onclick="requestPassword('red', 'modulo3')"></div>
+                <div class="status-dot green" onclick="requestPassword('green', 'modulo3')"></div>
             </div>
+            <div class="module-icon">🏫</div>
+            <h2 class="module-title">Procesos Institucionales</h2>
+            <p class="module-description">Si realizas tus EFSRT o prácticas preprofesionales en el Grupo Educativo Neumann, vinculadas a las capacidades de tu programa de estudio, esta modalidad es ideal para ti.</p>
+            <button class="module-button" onclick="confirmPaymentStatus('https://docs.google.com/forms/d/e/1FAIpQLSdvEoRgF69iglu-ZhpiItXjPJERk46nEWXVgOXZB3AjX9YABg/viewform?embedded=true')">Inicia tu registro</button>
+        </div>
 
-            <!-- Módulo 4 -->
-            <div class="game-card">
-                <div class="mac-buttons">
-                    <div class="mac-button" onclick="requestPassword('red', 'modulo4')"></div>
-                    <div class="mac-button green" onclick="requestPassword('green', 'modulo4')"></div>
-                </div>
-                <h2>💼 Módulo 4: Emprendimiento e Iniciativas de Negocio</h2>
-<p>Si tienes un negocio propio, esta modalidad es para ti. Si no realizas tus prácticas o EFSRT en las modalidades anteriores, esta opción también es para ti.</p>
-                <button onclick="confirmPaymentStatus('https://forms.gle/KqEghDEqN4mQCzSf6')">Inicia tu registro</button>
+        <!-- Módulo 4 -->
+        <div class="module-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="status-buttons">
+                <div class="status-dot red" onclick="requestPassword('red', 'modulo4')"></div>
+                <div class="status-dot green" onclick="requestPassword('green', 'modulo4')"></div>
             </div>
+            <div class="module-icon">💼</div>
+            <h2 class="module-title">Emprendimiento e Iniciativas de Negocio</h2>
+            <p class="module-description">Si tienes un negocio propio, esta modalidad es para ti. Si no realizas tus prácticas o EFSRT en las modalidades anteriores, esta opción también es para ti.</p>
+            <button class="module-button" onclick="confirmPaymentStatus('https://forms.gle/KqEghDEqN4mQCzSf6')">Inicia tu registro</button>
+        </div>
 
-            <!-- Módulo 5 -->
-            <div class="game-card">
-                <div class="mac-buttons">
-                    <div class="mac-button" onclick="requestPassword('red', 'modulo5')"></div>
-                    <div class="mac-button green" onclick="requestPassword('green', 'modulo5')"></div>
-                </div>
-                <h2>🤝 Módulo 5: Proyecto Social en Instituciones Educativas</h2>
-<p>Si realizas actividades con alguna de las organizaciones de voluntariado con convenio institucional, esta modalidad es ideal para ti.</p>
-                <button onclick="confirmPaymentStatus('https://forms.gle/xQHwTy2cv1jgygFQ8')">Inicia tu registro</button>
+        <!-- Módulo 5 -->
+        <div class="module-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="status-buttons">
+                <div class="status-dot red" onclick="requestPassword('red', 'modulo5')"></div>
+                <div class="status-dot green" onclick="requestPassword('green', 'modulo5')"></div>
             </div>
-        </main>
-    </div>
+            <div class="module-icon">🤝</div>
+            <h2 class="module-title">Proyecto Social en Instituciones Educativas</h2>
+            <p class="module-description">Si realizas actividades con alguna de las organizaciones de voluntariado con convenio institucional, esta modalidad es ideal para ti.</p>
+            <button class="module-button" onclick="confirmPaymentStatus('https://forms.gle/xQHwTy2cv1jgygFQ8')">Inicia tu registro</button>
+        </div>
+    </main>
 
-    <!-- Contenedor iframe para módulos que se abren en la misma página -->
-    <div id="iframe-container"></div>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Derechos Reservados. Instituto de Educación Superior Tecnológico John Von Neumann.</p>
+    <footer class="footer">
+        <p>&copy; 2024 Instituto de Educación Superior Tecnológico John Von Neumann. Todos los derechos reservados.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        
+        // Inicializar AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Contraseña para acceder a los recursos
+        const passwordCorrect = "claveSecreta";
+
+        // Mostrar alerta inicial
         window.onload = function() {
             Swal.fire({
-                title: '¡Importante!',
-html: '<p>1. Revisa la información correctamente</p>' +
-     '<p><strong style="color: red;">2. Seleccione solo una de las modalidades</strong></p>' +
-     '<p><strong style="color: red;">3. Solo puedes hacer el envío una sola vez</strong></p>' +
-     '<p>4. Al registrarte, revisa tu correo (Si en el lapso de una hora no llega tu nota e informe, envía un correo a soporte@neumann.edu.pe indicando el problema)</p>',
-
+                title: '¡Información Importante!',
+                html: `
+                    <div style="text-align: left; padding: 1rem;">
+                        <p style="margin-bottom: 1rem;">📋 <strong>Por favor, lee atentamente:</strong></p>
+                        <p>1. Revisa la información detenidamente</p>
+                        <p style="color: #EF4444;">2. Selecciona <strong>solo una</strong> de las modalidades</p>
+                        <p style="color: #EF4444;">3. El registro solo puede realizarse <strong>una vez</strong></p>
+                        <p>4. Recibirás un correo con tu nota e informe en el lapso de una hora</p>
+                        <p style="font-size: 0.9rem; margin-top: 1rem;">Si no recibes el correo, contacta a soporte@neumann.edu.pe</p>
+                    </div>
+                `,
                 icon: 'info',
-                confirmButtonText: 'Entendido'
+                confirmButtonText: 'Entendido',
+                customClass: {
+                    container: 'custom-swal'
+                }
             });
         };
 
-
-        const passwordCorrect = "claveSecreta"; // Contraseña correcta
-
         function requestPassword(color, modulo) {
             Swal.fire({
-                title: 'Ingresa la contraseña',
+                title: 'Acceso Restringido',
                 input: 'password',
-                inputPlaceholder: 'Introduce tu contraseña',
+                inputPlaceholder: 'Ingresa la contraseña',
                 inputAttributes: {
                     autocapitalize: 'off',
                     autocorrect: 'off'
                 },
                 showCancelButton: true,
                 confirmButtonText: 'Acceder',
+                cancelButtonText: 'Cancelar',
                 showLoaderOnConfirm: true,
+                backdrop: true,
                 preConfirm: (password) => {
                     if (password === passwordCorrect) {
-                        // Abrir el enlace correcto según el botón y módulo
                         const enlaces = {
                             modulo1: {
                                 red: 'https://drive.google.com/drive/folders/1Zw5q0oEl3YSCv-FlWdysX67QiwzvHezX?usp=drive_link',
@@ -314,59 +364,49 @@ html: '<p>1. Revisa la información correctamente</p>' +
                                 green: 'https://docs.google.com/spreadsheets/d/1JujPlr4dQA_6QwYlmOIBtg5DBhsR0a-g8yIgxSSK3mc/edit?gid=0#gid=0'
                             }
                         };
-
-                        const enlace = enlaces[modulo][color];
-                        window.open(enlace, '_blank'); // Abre en una nueva ventana
+                        window.open(enlaces[modulo][color], '_blank');
                     } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Contraseña incorrecta.'
-                        });
+                        Swal.showValidationMessage('Contraseña incorrecta');
                     }
                 }
             });
         }
 
-        function loadIframe(url) {
-            let iframeContainer = document.getElementById('iframe-container');
-            iframeContainer.style.display = 'block'; // Mostrar el contenedor
-            iframeContainer.innerHTML = `<iframe src="${url}" frameborder="0"></iframe>`;
-            // Desplazarse automáticamente al iframe
-            iframeContainer.scrollIntoView({ behavior: 'smooth' });
-        }
-
         function confirmPaymentStatus(url) {
             Swal.fire({
-                title: '¿Estás al día con tus pagos?',
-                text: "Recuerda que para registrarte no debes contar con deuda o de lo contrario no se te considerará tu registro.",
+                title: 'Verificación de Pagos',
+                text: 'Para continuar con el registro, confirma que estás al día con tus pagos.',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Sí, estoy al día',
                 cancelButtonText: 'No, tengo deuda',
-                reverseButtons: true
+                reverseButtons: true,
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    if (url.includes('embedded=true')) {
-                        loadIframe(url);
-                    } else {
-                        window.open(url, '_blank');
-                    }
+                    window.open(url, '_blank');
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    Swal.fire('Cancelado', 'Debes estar al día con tus pagos para continuar.', 'info');
+                    Swal.fire({
+                        title: 'Registro No Disponible',
+                        text: 'Por favor, regulariza tus pagos para poder continuar con el registro.',
+                        icon: 'info',
+                        confirmButtonText: 'Entendido'
+                    });
                 }
             });
         }
 
         function showModule2Alert() {
             Swal.fire({
-                title: 'Módulo 2 no disponible',
-                text: 'En este momento, no se está impartiendo este módulo.',
+                title: 'Módulo No Disponible',
+                text: 'En este momento, el módulo de Proyectos de Investigación o Innovación no está disponible.',
                 icon: 'info',
                 confirmButtonText: 'Entendido'
             });
         }
     </script>
-
 </body>
 </html>
