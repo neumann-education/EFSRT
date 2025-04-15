@@ -360,29 +360,64 @@
 
         // Mostrar alertas iniciales
         window.onload = function() {
-            // Primera alerta
+            // Primera alerta - Modalidad
             Swal.fire({
-                title: '¡Información Importante!',
-                html: `
-                    <div style="text-align: left; padding: 1rem;">
-                        <p style="margin-bottom: 1rem; color: #4B5563;">📋 <strong>Por favor, lee atentamente:</strong></p>
-                        <p style="margin-bottom: 0.5rem;">1. Revisa la información detenidamente</p>
-                        <p style="margin-bottom: 0.5rem; color: #EF4444;">2. Selecciona <strong>solo una</strong> de las modalidades</p>
-                        <p style="margin-bottom: 0.5rem; color: #EF4444;">3. El registro solo puede realizarse <strong>una vez</strong></p>
-                        <p style="margin-bottom: 0.5rem;">4. Recibirás un correo con tu nota e informe en el lapso de una hora</p>
-                        <p style="font-size: 0.9rem; margin-top: 1rem; color: #6B7280;">Para soporte técnico: soporte@neumann.edu.pe</p>
-                    </div>
-                `,
-                icon: 'info',
-                confirmButtonText: 'Entendido'
-            }).then(() => {
-                // Segunda alerta sobre el Módulo 2
-                Swal.fire({
-                    title: 'Aviso sobre Módulo 2',
-                    text: 'El módulo de Proyectos de Investigación no está disponible temporalmente. Por favor, elige otra modalidad.',
-                    icon: 'warning',
-                    confirmButtonText: 'Entendido'
-                });
+                title: '¿Qué modalidad perteneces?',
+                icon: 'warning',
+                showDenyButton: true,
+                confirmButtonText: 'Presencial',
+                denyButtonText: 'Online',
+                allowOutsideClick: false,  // No cerrar haciendo clic fuera
+                allowEscapeKey: false,     // No cerrar con ESC
+                allowEnterKey: false,      // No cerrar con Enter
+                backdrop: true            // Fondo bloqueado
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si es Presencial, muestra el mensaje y recarga la página
+                    Swal.fire({
+                        title: 'Modalidad Presencial',
+                        text: 'Los tiempos para usar los formularios de Experiencias Formativas han finalizado.',
+                        icon: 'info',
+                        confirmButtonText: 'Entendido',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then(() => {
+                        location.reload();  // Recarga la página para evitar acceso
+                    });
+                } else if (result.isDenied) {
+                    // Si es Online, permite continuar
+                    Swal.fire({
+                        title: 'Modalidad Online',
+                        text: 'Aún estás a tiempo para completar tus formularios.',
+                        icon: 'success',
+                        confirmButtonText: 'Continuar'
+                    }).then(() => {
+                        // Resto de las alertas informativas...
+                        Swal.fire({
+                            title: '¡Información Importante!',
+                            html: `
+                                <div style="text-align: left; padding: 1rem;">
+                                    <p style="margin-bottom: 1rem; color: #4B5563;">📋 <strong>Por favor, lee atentamente:</strong></p>
+                                    <p style="margin-bottom: 0.5rem;">1. Revisa la información detenidamente</p>
+                                    <p style="margin-bottom: 0.5rem; color: #EF4444;">2. Selecciona <strong>solo una</strong> de las modalidades</p>
+                                    <p style="margin-bottom: 0.5rem; color: #EF4444;">3. El registro solo puede realizarse <strong>una vez</strong></p>
+                                    <p style="margin-bottom: 0.5rem;">4. Recibirás un correo con tu nota e informe en el lapso de una hora</p>
+                                    <p style="font-size: 0.9rem; margin-top: 1rem; color: #6B7280;">Para soporte técnico: soporte@neumann.edu.pe</p>
+                                </div>
+                            `,
+                            icon: 'info',
+                            confirmButtonText: 'Entendido'
+                        }).then(() => {
+                            // Alerta sobre el Módulo 2
+                            Swal.fire({
+                                title: 'Aviso sobre Módulo 2',
+                                text: 'El módulo de Proyectos de Investigación no está disponible temporalmente. Por favor, elige otra modalidad.',
+                                icon: 'warning',
+                                confirmButtonText: 'Entendido'
+                            });
+                        });
+                    });
+                }
             });
         };
 
