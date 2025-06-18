@@ -345,7 +345,7 @@
     </main>
 
     <footer class="footer">
-        <p>&copy; 2024 Instituto de Educación Superior Tecnológico John Von Neumann. Todos los derechos reservados.</p>
+        <p>© 2024 Instituto de Educación Superior Tecnológico John Von Neumann. Todos los derechos reservados.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -358,41 +358,35 @@
 
         const passwordCorrect = "claveSecreta";
 
+        // *** CÓDIGO MODIFICADO ***
         // Mostrar alertas iniciales
         window.onload = function() {
             // Primera alerta - Modalidad
             Swal.fire({
-                title: '¿Qué modalidad perteneces?',
-                icon: 'warning',
+                title: '¿A qué modalidad perteneces?',
+                icon: 'question',
                 showDenyButton: true,
                 confirmButtonText: 'Presencial',
                 denyButtonText: 'Online',
-                allowOutsideClick: false,  // No cerrar haciendo clic fuera
-                allowEscapeKey: false,     // No cerrar con ESC
-                allowEnterKey: false,      // No cerrar con Enter
-                backdrop: true            // Fondo bloqueado
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                backdrop: true
             }).then((result) => {
-                if (result.isConfirmed) {
-                    // Si es Presencial, muestra el mensaje y recarga la página
+                // Si el usuario elige CUALQUIER opción (Presencial u Online), permitirle continuar.
+                if (result.isConfirmed || result.isDenied) {
+                    
+                    // Personalizamos el mensaje de bienvenida según la elección
+                    const modalityTitle = result.isConfirmed ? 'Bienvenido/a, Modalidad Presencial' : 'Bienvenido/a, Modalidad Online';
+                    const modalityText = 'Ahora puedes continuar y seleccionar tu módulo.';
+
                     Swal.fire({
-                        title: 'Modalidad Presencial',
-                        text: 'Los tiempos para usar los formularios de Experiencias Formativas han finalizado.',
-                        icon: 'info',
-                        confirmButtonText: 'Entendido',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false
-                    }).then(() => {
-                        location.reload();  // Recarga la página para evitar acceso
-                    });
-                } else if (result.isDenied) {
-                    // Si es Online, permite continuar
-                    Swal.fire({
-                        title: 'Modalidad Online',
-                        text: 'Aún estás a tiempo para completar tus formularios.',
+                        title: modalityTitle,
+                        text: modalityText,
                         icon: 'success',
                         confirmButtonText: 'Continuar'
                     }).then(() => {
-                        // Resto de las alertas informativas...
+                        // Flujo de alertas informativas para todos
                         Swal.fire({
                             title: '¡Información Importante!',
                             html: `
