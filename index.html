@@ -89,6 +89,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
+            transition: opacity 0.5s ease, filter 0.5s ease;
         }
 
         .module-card {
@@ -222,6 +223,13 @@
 
         .module-card.disabled::before {
             background: #d1d5db;
+        }
+
+        /* *** NUEVA CLASE PARA BLOQUEAR CONTENIDO *** */
+        .content-disabled {
+            pointer-events: none;
+            opacity: 0.5;
+            filter: blur(3px);
         }
 
         .footer {
@@ -359,9 +367,7 @@
         const passwordCorrect = "claveSecreta";
 
         // *** CÓDIGO MODIFICADO ***
-        // Mostrar alertas iniciales
         window.onload = function() {
-            // Primera alerta - Modalidad
             Swal.fire({
                 title: '¿A qué modalidad perteneces?',
                 icon: 'question',
@@ -373,29 +379,39 @@
                 allowEnterKey: false,
                 backdrop: true
             }).then((result) => {
-                // Si el usuario elige CUALQUIER opción (Presencial u Online), permitirle continuar.
-                if (result.isConfirmed || result.isDenied) {
-                    
-                    // Personalizamos el mensaje de bienvenida según la elección
-                    const modalityTitle = result.isConfirmed ? 'Bienvenido/a, Modalidad Presencial' : 'Bienvenido/a, Modalidad Online';
-                    const modalityText = 'Ahora puedes continuar y seleccionar tu módulo.';
-
+                // Si elige 'Presencial'
+                if (result.isConfirmed) {
                     Swal.fire({
-                        title: modalityTitle,
-                        text: modalityText,
+                        title: 'Registros Presenciales Cerrados',
+                        icon: 'error',
+                        html: 'Los registros para la modalidad presencial se encuentran actualmente cerrados. Para más información, <strong><a href="https://neumann-education.github.io/freescoutIN/" target="_blank" style="color: var(--primary-color);">comunícate con soporte</a></strong>.',
+                        confirmButtonText: 'Entendido',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then(() => {
+                        // Bloquear el contenido principal después de que el usuario cierre la alerta
+                        document.querySelector('main.container').classList.add('content-disabled');
+                    });
+                } 
+                // Si elige 'Online'
+                else if (result.isDenied) {
+                    Swal.fire({
+                        title: 'Bienvenido/a, Modalidad Online',
+                        text: 'Ahora puedes continuar y seleccionar tu módulo.',
                         icon: 'success',
                         confirmButtonText: 'Continuar'
                     }).then(() => {
-                        // Flujo de alertas informativas para todos
+                        // Flujo de alertas informativas para usuarios 'Online'
                         Swal.fire({
                             title: '¡Información Importante!',
                             html: `
                                 <div style="text-align: left; padding: 1rem;">
                                     <p style="margin-bottom: 1rem; color: #4B5563;">📋 <strong>Por favor, lee atentamente:</strong></p>
-                                    <p style="margin-bottom: 0.5rem;">1. Revisa la información detenidamente</p>
-                                    <p style="margin-bottom: 0.5rem; color: #EF4444;">2. Selecciona <strong>solo una</strong> de las modalidades</p>
-                                    <p style="margin-bottom: 0.5rem; color: #EF4444;">3. El registro solo puede realizarse <strong>una vez</strong></p>
-                                    <p style="margin-bottom: 0.5rem;">4. Recibirás un correo con tu nota e informe en el lapso de una hora</p>
+                                    <p style="margin-bottom: 0.5rem;">1. Revisa la información detenidamente.</p>
+                                    <p style="margin-bottom: 0.5rem; color: #EF4444;">2. Selecciona <strong>solo una</strong> de las modalidades.</p>
+                                    <p style="margin-bottom: 0.5rem; color: #EF4444;">3. El registro solo puede realizarse <strong>una vez</strong>.</p>
+                                    <p style="margin-bottom: 1rem;">4. Recibirás un correo con tu nota e informe en el lapso de una hora.</p>
+                                    <p style="margin-bottom: 1rem; color: #D32F2F; font-weight: bold; border: 1px solid #EF4444; padding: 0.5rem; border-radius: 8px;">5. Todo intento de trampa o manipulación de los registros será sancionado.</p>
                                     <p style="font-size: 0.9rem; margin-top: 1rem; color: #6B7280;">Para soporte técnico: soporte@neumann.edu.pe</p>
                                 </div>
                             `,
@@ -499,4 +515,4 @@
         }
     </script>
 </body>
-</html>
+</html>```
