@@ -215,23 +215,6 @@
             background: var(--success-color);
         }
 
-        .module-card.disabled {
-            opacity: 0.7;
-            pointer-events: none;
-            background: #f3f4f6;
-        }
-
-        .module-card.disabled::before {
-            background: #d1d5db;
-        }
-
-        /* *** NUEVA CLASE PARA BLOQUEAR CONTENIDO *** */
-        .content-disabled {
-            pointer-events: none;
-            opacity: 0.5;
-            filter: blur(3px);
-        }
-
         .footer {
             background: linear-gradient(135deg, #1F2937, #111827);
             color: white;
@@ -303,17 +286,7 @@
             <button class="module-button" onclick="confirmPaymentStatus('https://forms.gle/vpJ3jjtxULrkKfbH6')">Iniciar Registro</button>
         </div>
 
-        <!-- Módulo 2 -->
-        <div class="module-card disabled" data-aos="fade-up" data-aos-delay="100">
-            <div class="status-buttons">
-                <div class="status-dot red" onclick="requestPassword('red', 'modulo2')"></div>
-                <div class="status-dot green" onclick="requestPassword('green', 'modulo2')"></div>
-            </div>
-            <div class="module-icon">🏫</div>
-            <h2 class="module-title">Proyectos de Investigación</h2>
-            <p class="module-description">Si realizas tus prácticas o EFSRT en el proyecto de investigación Neumann Research, esta modalidad es ideal para ti. [Temporalmente no disponible]</p>
-            <button class="module-button" onclick="showModule2Alert()">No Disponible</button>
-        </div>
+        <!-- Módulo 2: Oculto -->
 
         <!-- Módulo 3 -->
         <div class="module-card" data-aos="fade-up" data-aos-delay="200">
@@ -367,6 +340,27 @@
         const passwordCorrect = "claveSecreta";
 
         // *** CÓDIGO MODIFICADO ***
+
+        // Función para mostrar los avisos importantes
+        function showInformationalAlerts() {
+            Swal.fire({
+                title: '¡Información Importante!',
+                html: `
+                    <div style="text-align: left; padding: 1rem;">
+                        <p style="margin-bottom: 1rem; color: #4B5563;">📋 <strong>Por favor, lee atentamente:</strong></p>
+                        <p style="margin-bottom: 0.5rem;">1. Revisa la información detenidamente.</p>
+                        <p style="margin-bottom: 0.5rem; color: #EF4444;">2. Selecciona <strong>solo una</strong> de las modalidades.</p>
+                        <p style="margin-bottom: 0.5rem; color: #EF4444;">3. El registro solo puede realizarse <strong>una vez</strong>.</p>
+                        <p style="margin-bottom: 1rem;">4. Recibirás un correo con tu nota e informe en el lapso de una hora.</p>
+                        <p style="margin-bottom: 1rem; color: #D32F2F; font-weight: bold; border: 1px solid #EF4444; padding: 0.5rem; border-radius: 8px;">5. Todo intento de trampa o manipulación de los registros será sancionado.</p>
+                        <p style="font-size: 0.9rem; margin-top: 1rem; color: #6B7280;">Para soporte técnico: soporte@neumann.edu.pe</p>
+                    </div>
+                `,
+                icon: 'info',
+                confirmButtonText: 'Entendido'
+            });
+        }
+        
         window.onload = function() {
             Swal.fire({
                 title: '¿A qué modalidad perteneces?',
@@ -379,18 +373,16 @@
                 allowEnterKey: false,
                 backdrop: true
             }).then((result) => {
-                // Si elige 'Presencial'
+                // Si elige 'Presencial' (Desbloqueado)
                 if (result.isConfirmed) {
                     Swal.fire({
-                        title: 'Registros Presenciales Cerrados',
-                        icon: 'error',
-                        html: 'Los registros para la modalidad presencial se encuentran actualmente cerrados. Para más información, <strong><a href="https://neumann-education.github.io/freescoutIN/" target="_blank" style="color: var(--primary-color);">comunícate con soporte</a></strong>.',
-                        confirmButtonText: 'Entendido',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false
+                        title: 'Bienvenido/a, Modalidad Presencial',
+                        text: 'Ahora puedes continuar y seleccionar tu módulo.',
+                        icon: 'success',
+                        confirmButtonText: 'Continuar'
                     }).then(() => {
-                        // Bloquear el contenido principal después de que el usuario cierre la alerta
-                        document.querySelector('main.container').classList.add('content-disabled');
+                        // Muestra los avisos importantes
+                        showInformationalAlerts();
                     });
                 } 
                 // Si elige 'Online'
@@ -401,31 +393,8 @@
                         icon: 'success',
                         confirmButtonText: 'Continuar'
                     }).then(() => {
-                        // Flujo de alertas informativas para usuarios 'Online'
-                        Swal.fire({
-                            title: '¡Información Importante!',
-                            html: `
-                                <div style="text-align: left; padding: 1rem;">
-                                    <p style="margin-bottom: 1rem; color: #4B5563;">📋 <strong>Por favor, lee atentamente:</strong></p>
-                                    <p style="margin-bottom: 0.5rem;">1. Revisa la información detenidamente.</p>
-                                    <p style="margin-bottom: 0.5rem; color: #EF4444;">2. Selecciona <strong>solo una</strong> de las modalidades.</p>
-                                    <p style="margin-bottom: 0.5rem; color: #EF4444;">3. El registro solo puede realizarse <strong>una vez</strong>.</p>
-                                    <p style="margin-bottom: 1rem;">4. Recibirás un correo con tu nota e informe en el lapso de una hora.</p>
-                                    <p style="margin-bottom: 1rem; color: #D32F2F; font-weight: bold; border: 1px solid #EF4444; padding: 0.5rem; border-radius: 8px;">5. Todo intento de trampa o manipulación de los registros será sancionado.</p>
-                                    <p style="font-size: 0.9rem; margin-top: 1rem; color: #6B7280;">Para soporte técnico: soporte@neumann.edu.pe</p>
-                                </div>
-                            `,
-                            icon: 'info',
-                            confirmButtonText: 'Entendido'
-                        }).then(() => {
-                            // Alerta sobre el Módulo 2
-                            Swal.fire({
-                                title: 'Aviso sobre Módulo 2',
-                                text: 'El módulo de Proyectos de Investigación no está disponible temporalmente. Por favor, elige otra modalidad.',
-                                icon: 'warning',
-                                confirmButtonText: 'Entendido'
-                            });
-                        });
+                        // Muestra los avisos importantes
+                        showInformationalAlerts();
                     });
                 }
             });
@@ -452,6 +421,7 @@
                                 red: 'https://drive.google.com/drive/folders/1Zw5q0oEl3YSCv-FlWdysX67QiwzvHezX?usp=drive_link',
                                 green: 'https://docs.google.com/spreadsheets/d/183806pPohAwvETv5y4glAgVmNQfuDI3tHKT-E_0iHYE/edit?gid=0#gid=0'
                             },
+                            // Módulo 2 eliminado, pero se deja la data por si se reactiva
                             modulo2: {
                                 red: 'https://drive.google.com/drive/folders/1cGy7hyKnU4JTnWaz5uMel7hoGbqxaywu?usp=drive_link',
                                 green: 'https://docs.google.com/spreadsheets/d/1_zdrGHYr0a_5uDN9J17kGQq4w8qGmKY02Fsg8Jg3I34/edit?gid=0#gid=0'
@@ -504,15 +474,6 @@
                 }
             });
         }
-
-        function showModule2Alert() {
-            Swal.fire({
-                title: 'Módulo No Disponible',
-                text: 'En este momento, el módulo de Proyectos de Investigación no está disponible. Por favor, elige otra modalidad.',
-                icon: 'info',
-                confirmButtonText: 'Entendido'
-            });
-        }
     </script>
 </body>
-</html>```
+</html>
