@@ -339,8 +339,6 @@
 
         const passwordCorrect = "claveSecreta";
 
-        // *** CÓDIGO MODIFICADO ***
-
         // Función para mostrar los avisos importantes
         function showInformationalAlerts() {
             Swal.fire({
@@ -373,16 +371,18 @@
                 allowEnterKey: false,
                 backdrop: true
             }).then((result) => {
-                // Si elige 'Presencial' (Desbloqueado)
+                // CONDICIONAL AGREGADA: PRESENCIAL
                 if (result.isConfirmed) {
                     Swal.fire({
-                        title: 'Bienvenido/a, Modalidad Presencial',
-                        text: 'Ahora puedes continuar y seleccionar tu módulo.',
-                        icon: 'success',
-                        confirmButtonText: 'Continuar'
+                        title: 'Acceso no disponible',
+                        text: 'La modalidad Presencial no está habilitada por el momento.',
+                        icon: 'error',
+                        confirmButtonText: 'Entendido',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
                     }).then(() => {
-                        // Muestra los avisos importantes
-                        showInformationalAlerts();
+                        // Recargar la página para impedir el acceso y volver al inicio
+                        location.reload();
                     });
                 } 
                 // Si elige 'Online'
